@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 import { storage, db } from './firebase'
 import firebase from 'firebase'
 import './ImageUpload.css'
@@ -58,10 +58,18 @@ function ImageUpload({username}) {
     return (
         <div className="imageUpload">
             <progress className="imageUpload__progress" value={progress} max="100"/>
-            <input type="text" placeholder="Enter a caption..." onChange={event => setCaption(event.target.value)} value={caption} />
-            <input type="file" onChange={handleChange} />
+            <TextField
+                className="caption"
+                label="스토리를 입력하세요..."
+                multiline
+                rows={6}
+                fullWidth
+                onChange={event => setCaption(event.target.value)} value={caption}
+            />
+            {/* <input type="text" placeholder="내용을 입력하세요..." onChange={event => setCaption(event.target.value)} value={caption} /> */}
+            <input className="file" type="file" onChange={handleChange} />
             <Button onClick={handleUpload}>
-                Upload
+                업로드
             </Button>
 
 

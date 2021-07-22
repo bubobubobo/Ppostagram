@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
 import { Button, Input } from '@material-ui/core'
 import ImageUpload from './ImageUpload'
-import InstagramEmbed from 'react-instagram-embed'
+
 
 function getModalStyle() {
   const top = 50;
@@ -173,49 +173,66 @@ function App() {
       <div className="app__header">
         <img className="app__headerImage" src="/image/logo.png" alt=""/>
         {user ? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>
+          <Button onClick={() => auth.signOut()}>로그아웃</Button>
         ): (
           <div className="app__loginContainer">
-            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+            <Button onClick={() => setOpenSignIn(true)}>로그인</Button>
+            <Button onClick={() => setOpen(true)}>회원가입</Button>
           </div>
         )}
       </div>
-
+      
       <div className="app__posts">
-        {
+        <div className="app__posts__contents">
+          {
           posts.map(({id, post}) => ( // everytime we get a post
-            <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+            <Post key={id} postId={id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
           ))
-        }
+          }
+        </div>
+        {/* <div className="app__posts__profile">
+          <img className="profile__image" src="/image/2.png" alt=""/>
+          <div className="profile__contents">
+            <h4 className="profile__contents__title">
+              이름
+            </h4>
+            <div className="profile__contents__caption">
+              뽀송이
+            </div>
+          </div>
+          <div className="profile__contents">
+            <h4 className="profile__contents__title">
+              직업
+            </h4>
+            <div className="profile__contents__caption">
+              강아지
+            </div>
+          </div>
+          <div className="profile__contents">
+            <h4 className="profile__contents__title">
+              견종
+            </h4>
+            <div className="profile__contents__caption">
+              뽀메라니안
+            </div>
+          </div>
+          <div className="profile__contents">
+            <h4 className="profile__contents__title">
+              나이
+            </h4>
+            <div className="profile__contents__caption">
+              
+            </div>
+          </div>
+        </div> */}
       </div>
-
-      <InstagramEmbed
-      clientAccessToken='<appId>|<clientToken>'
-      url='https://instagr.am/p/Zw9o4/'
-      maxWidth={375}
-      hideCaption={false}
-      containerTagName='div'
-      injectScript
-      protocol=''
-      onLoading={() => {}}
-      onSuccess={() => {}}
-      onAfterRender={() => {}}
-      onFailure={() => {}}
-      />
-
 
 
       {user?.displayName ? (
         <ImageUpload username={user.displayName}/>
       ): (
-        <h3>Sorry you need to login to upload</h3>
+        <h3>사진을 업로드 하려면 먼저 로그인하세요</h3>
       )}
-
-
-
-      
-
     </div>
   );
 }
